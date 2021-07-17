@@ -2,3 +2,4 @@ sampleApp/.vs/
 OpcUaSdk.zip
 build/
 build-ubuntu/
+build-debian/

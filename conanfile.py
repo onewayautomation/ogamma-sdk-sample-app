@@ -40,8 +40,12 @@ class sampleApp(ConanFile):
         libFolderName = "ogamma-sdk/lib/"
         
         if tools.OSInfo().is_linux:
-            libUrl = "https://onewayautomation.com/opcua-binaries/sdk/ubuntu1804-OpcUaSdk-1.1.2-demo.zip"
-            libFileName = "ogamma-sdk/lib/libOpcUaSdk.a"
+            if tools.OSInfo().linux_distro == "ubuntu":
+                libUrl = "https://onewayautomation.com/opcua-binaries/sdk/ubuntu1804-OpcUaSdk-1.1.2-demo.zip"
+                libFileName = "ogamma-sdk/lib/libOpcUaSdk.a"
+            elif tools.OSInfo().linux_distro == "debian":
+                libUrl = "https://onewayautomation.com/opcua-binaries/sdk/debian1010-OpcUaSdk-1.1.2-demo.zip"
+                libFileName = "ogamma-sdk/lib/libOpcUaSdk.a"
         else:
             libFileName = "ogamma-sdk/lib/OpcUaSdk.lib"
             
