@@ -41,15 +41,21 @@ class sampleApp(ConanFile):
         
         if tools.OSInfo().is_linux:
             if tools.OSInfo().linux_distro == "ubuntu":
-                libUrl = "https://onewayautomation.com/opcua-binaries/sdk/ubuntu1804-OpcUaSdk-1.1.2-demo.zip"
-                libFileName = "ogamma-sdk/lib/libOpcUaSdk.a"
+                if tools.OSInfo().os_version == "18.04":
+                    libUrl = "https://onewayautomation.com/opcua-binaries/sdk/ubuntu1804-OpcUaSdk-1.1.2-demo.zip"
+                    libFileName = "ogamma-sdk/lib/libOpcUaSdk.a"
+                else:
+                    libUrl = "https://onewayautomation.com/opcua-binaries/sdk/ubuntu2004-OpcUaSdk-1.1.2-demo.zip"
+                    libFileName = "ogamma-sdk/lib/libOpcUaSdk.a"
             elif tools.OSInfo().linux_distro == "debian":
                 libUrl = "https://onewayautomation.com/opcua-binaries/sdk/debian1010-OpcUaSdk-1.1.2-demo.zip"
                 libFileName = "ogamma-sdk/lib/libOpcUaSdk.a"
+            elif tools.OSInfo().linux_distro == "rhel":
+                libUrl = "https://onewayautomation.com/opcua-binaries/sdk/rhel84-OpcUaSdk-1.1.2-demo.zip"
+                libFileName = "ogamma-sdk/lib/libOpcUaSdk.a"                
         else:
             libFileName = "ogamma-sdk/lib/OpcUaSdk.lib"
             
-        #os_info.is_windows
         
         fullPathToLibFile = "{}/{}".format(self.source_folder, libFileName);
         

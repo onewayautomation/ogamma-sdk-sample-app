@@ -3,3 +3,5 @@ OpcUaSdk.zip
 build/
 build-ubuntu/
 build-debian/
+build-redhat/
+ubuntu20/
