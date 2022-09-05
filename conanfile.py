@@ -6,18 +6,17 @@ from shutil import copyfile
 
 class sampleApp(ConanFile):
     requires = [
-#        ("ogamma-sdk/1.1.2"),
-        ("botan/2.17.1"),
-        ("boost/1.74.0"),
-        ("spdlog/1.8.1"),
-        ("pugixml/1.11")
+        ("botan/2.19.2"),
+        ("boost/1.79.0"),
+        ("spdlog/1.10.0"),
+        ("pugixml/1.12.1"),
     ]
     
     name = "sampleApp"
-    version = "0.0.1"
+    version = "0.2"
     license = "Proprietary"
-    url = "<Package recipe repository url here, for issues about the package>"
-    description = "<Description of the project here>"
+    url = "https://onewayautomation.com/opcua-sdk-docs/html/index.html"
+    description = "ogamma OPC UA C++ SDK Sample Application"
     settings = "os", "compiler", "build_type", "arch"
     options = {"shared": [True, False]}
     default_options = {"shared": False}
@@ -36,7 +35,7 @@ class sampleApp(ConanFile):
         
         # Download library file from the Internet:
         zipFileName = "OpcUaSdk.zip"
-        libUrl = "https://onewayautomation.com/opcua-binaries/sdk/vs2019-OpcUaSdk-1.1.2-demo.zip"
+        libUrl = "https://onewayautomation.com/opcua-binaries/sdk/vs2022-OpcUaSdk-1.2.4-demo.zip"
         libFolderName = "ogamma-sdk/lib/"
         
         if tools.OSInfo().is_linux:
