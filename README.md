@@ -1,4 +1,4 @@
-# Sample Application built using ``ogamma-sdk`
+# Sample Application built using ``ogamma-sdk``
 
 This repository contains source code for the Sample OPC UA Client Application built using ``ogamma-sdk``, OPC UA Client C++ SDK library from One-Way Automation: https://onewayautomation.com/opcua-sdk
 
