@@ -125,6 +125,7 @@ int main (int argc, char** argv)
           [samplingRate, queueSize, connection]
         (std::shared_ptr<CreateSubscriptionRequest>& request, std::shared_ptr<CreateSubscriptionResponse>& response)
         {
+            (void)request;
           if (response->isGood())
           {
             CreateMonitoredItemsRequest::Ptr createMonItemsRequest(new CreateMonitoredItemsRequest());
@@ -195,7 +196,7 @@ int main (int argc, char** argv)
         auto browseNextCallbackFunction = [connection, &cbbn, &cb, &numberOfRequests, &numberOfResponses, maxLevel, &totalNodes]
         (std::shared_ptr<BrowseNextRequest>& request, std::shared_ptr<BrowseNextResponse>& response)
         {
-          std::pair<int, std::vector<NodeId>> requestContext = boost::any_cast<std::pair<int, std::vector<NodeId>>>(request->context);
+          std::pair<int, std::vector<NodeId>> requestContext = std::any_cast<std::pair<int, std::vector<NodeId>>>(request->context);
           int level = requestContext.first;
 
           if (!Utils::isGood(response))
@@ -270,7 +271,7 @@ int main (int argc, char** argv)
         auto callbackFunction = [maxLevel, connection, browseNextCallbackFunction, &cb, &numberOfRequests, &numberOfResponses, &totalNodes]
         (std::shared_ptr<BrowseRequest>& request, std::shared_ptr<BrowseResponse>& response)
         {
-          int level = boost::any_cast<int>(request->context);
+          int level = std::any_cast<int>(request->context);
           if (!Utils::isGood(response))
           {
             std::cerr << "Browse request failed with error " << Utils::toString(response->header.serviceResult) << std::endl;
