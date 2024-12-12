@@ -14,6 +14,21 @@ To use ``ogamma-sdk`` library as a dependency in your C++ projects you need only
 
 Download the sdk distribution package from our online store and unzip its content into the folder ``ogamma-sdk``, located at the same level as this project's source code. If you move it to some other location, adjust path to the library in the file ``CMakeLists.txt`` (variable ``OGAMMA_SDK_PATH``).
 
+Folder structure should be like this:
+
+  ```
+  < Folder for Source Code >
+            |
+            |--- ogamma-sdk
+                     |
+                     |--- bin
+                     |--- include
+                     |--- lib
+            |--- ogamma-sdk-sample-app
+                     |
+                     |--- sampleApp
+  ```
+
 ### Build tools for the target platform.
 
 #### Windows
