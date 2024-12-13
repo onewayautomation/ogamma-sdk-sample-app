@@ -6,15 +6,15 @@ This repository contains source code for the Sample OPC UA Client Application bu
 
 ### ogamma-sdk (OPC UA Client C++ SDK)
 
-The sample application uses ``ogamma-sdk`` as a dependency library. You can download it from our online store at https://onewayautomation.com/online-store
+The sample application uses ``ogamma-sdk`` as a dependency library. You can download it from our [Online Store](https://onewayautomation.com/online-store).
 
 There is a free demo version of the distributable package (no credit card is required to download it), as well as commercial version is available at this online store.
 
-To use ``ogamma-sdk`` library as a dependency in your C++ projects you need only its own header files, there is no need to access header files of its dependency libraries such as `boost``. Binary format distribution package of the sdk has pre-built binaries of the sdk itself and its dependencies. This makes easy to integrate the library into your applications.
+To use ``ogamma-sdk`` library as a dependency in your C++ projects you need only its own header files, there is no need to access header files of its dependency libraries such as `boost``. Binary format distribution package of the sdk has pre-built binaries of the sdk itself and its dependencies in the ``lib`` folder. This makes easy to integrate the library into your applications.
 
-Download the sdk distribution package from our online store and unzip its content into the folder ``ogamma-sdk``, located at the same level as this project's source code. If you move it to some other location, adjust path to the library in the file ``CMakeLists.txt`` (variable ``OGAMMA_SDK_PATH``).
+Download the sdk distribution package from our [Online Store](https://onewayautomation.com/online-store) and unzip its content into the parent folder of this project's source code. If you move it to some other location, adjust path to the library in the file ``CMakeLists.txt`` (variable ``OGAMMA_SDK_PATH``).
 
-Folder structure should be like this:
+Default folder structure should be like this:
 
   ```
   < Folder for Source Code >
