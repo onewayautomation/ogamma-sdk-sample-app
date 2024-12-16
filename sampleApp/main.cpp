@@ -72,6 +72,38 @@ int main (int argc, char** argv)
     }
     else
     {
+      // Example how to read a few variables:
+      {
+        NodeId nodeId(4294967295, 2);
+        
+        // Alternatively, node id can be initialized from serialized string:
+        NodeId nid;
+        if (!nid.parse("ns=2;i=4294967295"))
+        {
+          std::cout << "Failed to parse node id" << std::endl;
+        }
+
+        ReadRequest::Ptr readRequest(new ReadRequest(nodeId));
+        readRequest->nodesToRead.push_back(nid);
+        readRequest->nodesToRead.push_back(NodeId("abra-cadabra")); // Node with this ID does not exist in the address space
+
+        auto readResponse = connection->send(readRequest).get();
+        if (readResponse->isGood() && readResponse->results.size() == readRequest->nodesToRead.size())
+        {
+          auto requestIter = readRequest->nodesToRead.begin();
+          for (auto result = readResponse->results.begin(); result != readResponse->results.end(); result++, requestIter++)
+          {
+            if (Utils::isGood(result->statusCode))
+            {
+              std::cout << "Node " << requestIter->nodeId.toString() << " has value " << result->value.toString() << std::endl;
+            }
+            else
+            {
+              std::cout << "Failed to read from node " << requestIter->nodeId.toString() << ", error: " << Utils::toString(result->statusCode) << std::endl;
+            }
+          }
+        }
+      }
       // Read from a node and write to it.
       {
         NodeId nodeId("Demo.Static.Scalar.String", 2);
@@ -378,6 +410,7 @@ int main (int argc, char** argv)
 
       }
 
+      std::this_thread::sleep_for(std::chrono::hours(2));
     }
   }
   OWA::OpcUa::Utils::closeSdk();
