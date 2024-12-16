@@ -27,15 +27,26 @@ int main (int argc, char** argv)
     config.readTypeDefinitionsOnConnect = true;
     config.readXmlTypeDictionaryOnConnect = true;
     config.createSession = true;
+
     config.securityMode = SecurityMode(SecurityPolicyId::None, MessageSecurityMode::None);
 
     // To connect in secured mode, uncomment line below.
-    // config.securityMode = SecurityMode(SecurityPolicyId::Basic256Sha256, MessageSecurityMode::SignAndEncrypt);
+    config.securityMode = SecurityMode(SecurityPolicyId::Basic256Sha256, MessageSecurityMode::SignAndEncrypt);
     
     // If the option acceptAnyCertificate is false, then connections only to servers with trusted certificate will be allowed.
     // If certificate is not valid or trusted, it will be saved in the data/PKI/rejected folder. 
     // To trust the certificate, move it to the folder data\PKI\trusted\certs
-    config.certificateSettings.validationRules.acceptAnyCertificate = true;
+    config.certificateSettings.validationRules.acceptAnyCertificate = false;
+    
+    // Default identity token is Anonymous.
+    // Setting username/password token below:
+    auto userNameIdentityToken = std::make_shared<UserNameIdentityToken>();
+    // Default credentials in Unified automation Demo Server.
+    userNameIdentityToken->userName = "root";   
+    userNameIdentityToken->password = "secret";
+
+    // To connect using Anonymous token, uncomment line below:
+    config.identityToken = userNameIdentityToken;
 
     auto connection = Connection::create(config);
 
