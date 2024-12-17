@@ -132,6 +132,40 @@ int main (int argc, char** argv)
         }
       }
 
+      // Write to the variable of known integer data type:
+      {
+        WriteRequest::Ptr writeRequest(new WriteRequest());
+
+        NodeId nodeId("Demo.Static.Scalar.Byte", 2);
+        DataValue dv;
+
+        // Literal numeric value like 123 can be treated as of many data types: could be float, double or 8, 16, 32, 64 bit signed or unsigned integer.
+        // OPC UA requires written values to have exactly the same data type as data type of the variable on the server. 
+        // Therefore, explicitly convert it the data type of the variable, which in case of this variable is Byte.
+        // C++ has native equivalent to it, so uint8_t is used to represent OPC UA Byte data type. 
+        // As a result of using conversion to uint8_t, Variant variable will have data type set to Byte:
+        dv.value = (uint8_t) 123;
+        
+        // Alternatively, we could assign to the Variant variable values of other variables, without explicit conversion, in this case variable's data type is already known to the compiler:
+        uint8_t byteValue = 123;
+        dv.value = byteValue;
+
+        WriteValue wv;
+        wv.nodeId = nodeId;
+        wv.value = dv;
+        writeRequest->nodesToWrite.push_back(wv);
+
+        auto writeResponse = connection->send(writeRequest).get();
+        if (writeResponse->isGood() && Utils::isGood(writeResponse->results[0]))
+        {
+          std::cout << "Wrote value " << dv.value.toString() << " to the variable with node id " << nodeId.toString() << std::endl;
+        }
+        else
+        {
+          std::cout << "Wrote value " << dv.value.toString() << " to the variable with node id " << nodeId.toString() << std::endl;
+        }
+      }
+
       // Create subscription and monitored items:
       {
 
@@ -409,8 +443,6 @@ int main (int argc, char** argv)
         << " ms, browsed " << totalNodes << " nodes with max. depth " << maxLevel << std::endl;
 
       }
-
-      std::this_thread::sleep_for(std::chrono::hours(2));
     }
   }
   OWA::OpcUa::Utils::closeSdk();
