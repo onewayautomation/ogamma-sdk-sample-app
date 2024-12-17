@@ -115,6 +115,13 @@ int main (int argc, char** argv)
           std::string currentValue = readResponse->results[0].value;
           std::string newValue = (currentValue == value1) ? value2 : value1;
           WriteRequest::Ptr writeRequest(new WriteRequest(WriteValue(nodeId, DataValue(Variant(newValue)))));
+          
+          // Example of write request writing to the variable of 32 bit unsigned integer type.
+          // Here constructor of the Variant takes value of explicitly defined data type uint32_t:
+          {
+            WriteRequest::Ptr writeRequest2(new WriteRequest(WriteValue(NodeId("Demo.Static.Scalar.UInt32", 2), DataValue(Variant((uint32_t)456)))));
+          }
+
           auto writeResponse = connection->send(writeRequest).get();
           if (writeResponse->isGood() && Utils::isGood(writeResponse->results[0]))
           {
